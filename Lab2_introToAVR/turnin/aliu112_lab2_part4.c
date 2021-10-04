@@ -48,6 +48,7 @@ int main(void) {
 		}
 	}
 	tempA = (tempA + tempB + tempC) & 0xFC;
+	tempA = tempA >> 2;
 	tempD = tempA | tempD;
 	PORTD = tempD;
     }
