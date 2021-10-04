@@ -28,7 +28,7 @@ int main(void) {
 	    tempB = PINB;
 	    tempC = PINC;
 	    tempD = 0x00;
-	if( (tempA + tempB + tempC) > 0x8D )
+	if( (tempA + tempB + tempC) > 0x8C )
 	{
 		tempD = tempD | 0x01;
 	}
@@ -47,8 +47,8 @@ int main(void) {
 		 tempD = tempD | 0x02;
 		}
 	}
-	tempA = (tempA + tempB + tempC) & 0xFC;
-	tempA = tempA >> 2;
+	tempA = (tempA + tempB + tempC) >>2;
+	tempA = tempA & 0xFC;
 	tempD = tempA | tempD;
 	PORTD = tempD;
     }
