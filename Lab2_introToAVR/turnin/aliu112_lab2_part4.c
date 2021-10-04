@@ -28,7 +28,7 @@ int main(void) {
 	    tempB = PINB;
 	    tempC = PINC;
 	    tempD = 0x00;
-	if( (tempA + tempB + tempC) > 0x8C )
+	if( (tempA + tempB + tempC) > 0x8D )
 	{
 		tempD = tempD | 0x01;
 	}
