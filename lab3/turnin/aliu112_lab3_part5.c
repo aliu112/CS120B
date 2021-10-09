@@ -1,4 +1,4 @@
-/*	Author: lab
+/*	Author: ab
  *  Partner(s) Name: none
  *	Lab Section:
  *	Assignment: Lab #  Exercise #
@@ -19,11 +19,12 @@ int main(void) {
     
     
     /* Insert your solution below */
-    unsigned char temp = 0x000;
+    unsigned short temp = 0x000;
     unsigned char tempNew = 0x000;
     unsigned char output = 0x00;
 
     while (1) {
+	temp = 0x000;
 	output = 0x00;
 	temp = PIND; 
 	tempNew = PINB;

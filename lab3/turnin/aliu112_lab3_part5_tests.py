@@ -33,7 +33,11 @@ tests = [ {'description': 'PIND: 0xA3,PINB=0x01, PORTB =0x02 ',
     'expected': [('PORTB', 0x00)],
     },
 
-
+    {'description': 'PIND: 0x80,PINB=0x00, PORTB =0x02 ',
+    'steps': [ {'inputs': [('PIND',0x80),('PINB',0x00)], 'iterations': 5 } ],
+    'expected': [('PORTB', 0x02)],
+    },
 
 
     ]
+watch = ['temp']
