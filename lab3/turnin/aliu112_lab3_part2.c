@@ -1,4 +1,4 @@
-/*	Author: lab
+/*	Author: ab
  *  Partner(s) Name: none
  *	Lab Section:
  *	Assignment: Lab #  Exercise #
@@ -20,10 +20,12 @@ int main(void) {
     
     /* Insert your solution below */
     unsigned char temp = 0x00;
+    unsigned char tempNew =0x00;
     unsigned char counter = 0x00;
     unsigned char holder = 0x00;
     while (1) {
-	temp = PINA;
+	tempNew = PINA;
+	temp = tempNew & 0xF;
 	holder = 0x00;
 
 	if(temp > 0x00)// && temp <= 0x02)
