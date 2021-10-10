@@ -91,7 +91,16 @@ void Tick(){
 
 	 case Y_unlock:
 	   PORTC = 0x05;
-	   PORTB = 1;
+	   //PORTB = 1;
+	   if(PORTB == 0x01)
+                  {
+                    PORTB = 0x00;
+                  }
+                  else if(PORTB == 0x00)
+                  {
+                        PORTB = 0x01;
+                  }
+
 		   state = beginning;
 	   break;
 
@@ -147,4 +156,4 @@ int main(void) {
       Tick();   
     }
     return 1;
-}
+i}
