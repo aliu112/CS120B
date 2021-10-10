@@ -25,11 +25,11 @@ void Tick(){
 	
 	 case beginning:
 	   PORTC=0x01;
-	   if( (PINA & 0x07) == 0x04)
+	   if( PINA== 0x04)
 	   {
 		state = pound_release;
 	   }
-	   else if( (PINA & 0x87) == 0x80)
+	   else if( PINA == 0x80)
 	   {
 		state = lock;
 	   } 
@@ -62,11 +62,11 @@ void Tick(){
 //	   }
 //
 	   
-	   if((PINA & 0x07) == 0x04)
+	   if(PINA  == 0x04)
 	   {
 		state = pound_release;
 	   }
-	   else if((PINA & 0x07) == 0x00)
+	   else if(PINA == 0x00)
 	   {
 		state = Y_press;
 	   }
@@ -76,11 +76,11 @@ void Tick(){
 	 
 	 case Y_press:
 	   PORTC = 0x04;
-	   if((PINA & 0x07) == 0x02)
+	   if(PINA  == 0x02)
 	   {
 		state = Y_press;
 	   }
-	   else if((PINA & 0x07) == 0x00)
+	   else if(PINA  == 0x00)
 	   {
 		state = Y_unlock;
 	   }
@@ -97,7 +97,7 @@ void Tick(){
 
 	 case lock:
 	   PORTC =0x06;
-	   if((PINA & 0x87) == 0x80)
+	   if(PINA  == 0x80)
 	   {
 		state = lock;
 	   }
@@ -119,7 +119,14 @@ void Tick(){
 	case Y_press:
 		  break;
 	case Y_unlock:
-		  PORTB = 0x01;
+		  if(PORTB == 0x01)
+		  {
+		    PORTB = 0x00;
+		  }
+		  else if(PORTB == 0x00)
+		  {
+		  	PORTB = 0x01;
+		  }
 		  break;
 	case lock:
 		  PORTB = 0x00;
