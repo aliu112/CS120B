@@ -94,7 +94,7 @@ void Tick(){
 	   //PORTB = 1;
 	   if(PORTB == 0x01)
                   {
-                    PORTB = 0x00;
+                    state= lock;
                   }
                   else 
                   {
@@ -128,14 +128,7 @@ void Tick(){
 	case Y_press:
 		  break;
 	case Y_unlock:
-		  if(PORTB == 0x01)
-		  {
-		    PORTB = 0x00;
-		  }
-		  else if(PORTB == 0x00)
-		  {
-		  	PORTB = 0x01;
-		  }
+		  PORTB =0x01;
 		  break;
 	case lock:
 		  PORTB = 0x00;
