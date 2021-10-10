@@ -43,32 +43,61 @@ void Tick(){
 	  break;
 
 	 case increment:
-	  //if((PINA & 0x01) == 0x01)
-           //{
-            //state = increment;
-           //}
-	  // else
+	  if( (PINA & 0x03) == 0x03 ) // reset needs to go first bc 0x03 & 0x01 will still give 0x01
+           {
+             state = reset;
+           }
+           else if((PINA & 0x02) == 0x02)
+           {
+             state = decrement;
+           }
+           else if((PINA & 0x01) == 0x01)
+           {
+            state = increment;
+           }
+
+        else
                    state = pause;
 
 	   break;
 
 	 case decrement:
-   	   //if((PINA & 0x02) == 0x02)
-           //{
-            // state = decrement;
-           //}
-           //else
-   	    state = pause;
+   	  if( (PINA & 0x03) == 0x03 ) // reset needs to go first bc 0x03 & 0x01 will still give 0x01
+           {
+             state = reset;
+           }
+           else if((PINA & 0x02) == 0x02)
+           {
+             state = decrement;
+           }
+           else if((PINA & 0x01) == 0x01)
+           {
+            state = increment;
+           }
+
+        else
+                   state = pause;
+
 
 	   break;
 
 	case reset:
-	   //if( (PINA & 0x03) == 0x03 ) // reset needs to go first bc 0x03 & 0x01 will still give 0x01
-           //{
-            // state = reset;
-          // }
-	   //else
+               if( (PINA & 0x03) == 0x03 ) // reset needs to go first bc 0x03 & 0x01 will still give 0x01
+           {
+             state = reset;
+           }
+           else if((PINA & 0x02) == 0x02)
+           {
+             state = decrement;
+           }
+           else if((PINA & 0x01) == 0x01)
+           {
+            state = increment;
+           }
+
+        else
                    state = pause;
+
 	break;
 
 	 
