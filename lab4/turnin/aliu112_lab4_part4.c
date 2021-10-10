@@ -80,6 +80,10 @@ void Tick(){
 	   {
 		state = Y_press;
 	   }
+	   else if(PINA == 0x00 && PORTB == 0x01)
+	   {
+		state = lock;
+	   }
 	   else if(PINA  == 0x00)
 	   {
 		state = Y_unlock;
@@ -91,15 +95,7 @@ void Tick(){
 
 	 case Y_unlock:
 	   PORTC = 0x05;
-	   //PORTB = 1;
-	   if(PORTB == 0x01)
-                  {
-                    state= lock;
-                  }
-                  else 
-                  {
-                        PORTB = 0x01;
-                  }
+	   PORTB = 1;
 
 		   state = beginning;
 	   break;
