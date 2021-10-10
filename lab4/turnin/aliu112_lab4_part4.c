@@ -96,7 +96,7 @@ void Tick(){
                   {
                     PORTB = 0x00;
                   }
-                  else if(PORTB == 0x00)
+                  else 
                   {
                         PORTB = 0x01;
                   }
