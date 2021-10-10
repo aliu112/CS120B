@@ -66,10 +66,12 @@ void Tick(){
 	   {
 		state = pound_release;
 	   }
-	   else
+	   else if((PINA & 0x07) == 0x00)
 	   {
 		state = Y_press;
 	   }
+	   else
+		   state = beginning;
 	   break;
 	 
 	 case Y_press:
