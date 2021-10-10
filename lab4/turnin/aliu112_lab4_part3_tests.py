@@ -21,9 +21,10 @@ tests = [
 
         {'inputs': [('PINA', 0x04)],'iterations':1, 'expected': [('PORTB',0x00),('PORTC',0x01)]}, # Set PIN to val then run one iteration
         {'inputs': [('PINA', 0x00)], 'iterations':1, 'expected': [('PORTB',0x00),('PORTC',0x02)] }, # Set PIN to val then run 300 ms
-        {'inputs': [('PINA',0x02)], 'iterations': 1, 'expected': [('PORTB',0x01),('PORTC',0x03)]},
-        {'inputs': [('PINA',0x01)], 'iterations': 1,'expected': [('PORTB',0x01),('PORTC',0x04)]},
-     #   {'inputs': [('PINA',0x80)], 'iterations': 5,'expected': [('PORTB',0x00)]},
+        {'inputs': [('PINA',0x02)], 'iterations': 1, 'expected': [('PORTB',0x00),('PORTC',0x03)]},
+        {'inputs': [('PINA',0x00)], 'iterations': 1,'expected': [('PORTB',0x01),('PORTC',0x04)]},
+        {'inputs': [('PINA',0x01)], 'iterations': 1,'expected': [('PORTB',0x01),('PORTC',0x05)]},
+        #   {'inputs': [('PINA',0x80)], 'iterations': 5,'expected': [('PORTB',0x00)]},
     #    {'inputs': [('PINA',0x04)], 'iterations': 5,'expected': [('PORTB',0x00)]}, 
    #     {'inputs': [('PINA',0x02)], 'iterations': 5,'expected': [('PORTB',0x00)]},
    ],
