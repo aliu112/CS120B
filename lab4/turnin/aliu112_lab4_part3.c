@@ -14,7 +14,7 @@
  
 
 
-enum States{start,beginning, pound_press, pound_release, Y_unlock,lock} state;
+enum States{start,beginning, pound_press, pound_release,Y_press, Y_unlock,lock} state;
 
 void Tick(){
 	switch (state){
@@ -68,19 +68,29 @@ void Tick(){
 		state = beginning;
 	   }
 	   break;
-
-	 case Y_unlock:
+	 
+	 case Y_press:
 	   PORTC = 0x04;
 	   if((PINA & 0x07) == 0x02)
+	   {
+		state = Y_press;
+	   }
+	   else if((PINA & 0x07) == 0x00)
 	   {
 		state = Y_unlock;
 	   }
 	   else
 		   state = beginning;
+
+	   break;
+
+	 case Y_unlock:
+	   PORTC = 0x05;
+		   state = beginning;
 	   break;
 
 	 case lock:
-	   PORTC =0x05;
+	   PORTC =0x06;
 	   if((PINA & 0x87) == 0x80)
 	   {
 		state = lock;
@@ -99,6 +109,8 @@ void Tick(){
 	  case pound_press:
 		  break;
 	case pound_release:
+		  break;
+	case Y_press:
 		  break;
 	case Y_unlock:
 		  PORTB = 0x01;
