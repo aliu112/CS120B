@@ -69,6 +69,10 @@ void Tick(){
            {
                 state = reset;
            }
+	   else if((PINA & 0x01) == 0x01)
+	   {
+		state = increment;
+	   }
            else if((PINA & 0x02) == 0x02)
            {
                    state = post_decrement;
