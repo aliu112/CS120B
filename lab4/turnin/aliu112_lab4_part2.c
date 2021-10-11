@@ -54,14 +54,11 @@ void Tick(){
 	   {
 		   state = reset;
 	   }
-	   else if((PINA & 0x02) == 0x02)
-	   {
-		state = reset;
-	   }
 	   else if((PINA & 0x03) == 0x00)
 	   {
 		state = pause;
 	   }
+	   break;
 
 	 case decrement:
    	  state = post_decrement;
@@ -75,15 +72,12 @@ void Tick(){
            else if((PINA & 0x03) == 0x03)
            {
                    state = reset;
-           }
-           else if((PINA & 0x01) == 0x01)
-           {
-                state = reset;
-           }
+	   }
            else if((PINA & 0x03) == 0x00)
            {
                 state = pause;
            }
+	   break;
 
 
 	case reset:
