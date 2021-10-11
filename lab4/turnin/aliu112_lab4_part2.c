@@ -14,7 +14,7 @@
  
 
 
-enum States{start, increment, decrement, pause, reset} state;
+enum States{start,preincrement, increment,predecrement, decrement, pause, reset} state;
 
 void Tick(){
 	switch (state){
@@ -36,68 +36,64 @@ void Tick(){
            {
             state = increment;
            }
-
-	else
+	   else
 		   state = pause;
 
 	  break;
 
 	 case increment:
-	  if( (PINA & 0x03) == 0x03 ) // reset needs to go first bc 0x03 & 0x01 will still give 0x01
-           {
-             state = reset;
-           }
-           else if((PINA & 0x02) == 0x02)
-           {
-             state = decrement;
-           }
-           else if((PINA & 0x01) == 0x01)
-           {
-            state = increment;
-           }
-
-        else
-                   state = pause;
-
+	   state = post_increment;
 	   break;
+
+	 case post_increment:
+	   if((PINA & 0x01) == 0x01)
+	   {
+		state = post_increment;
+	   }
+	   else if((PINA & 0x03) == 0x03)
+	   {
+		   state = reset;
+	   }
+	   else if((PINA & 0x02) == 0x02)
+	   {
+		state = reset;
+	   }
+	   else if((PINA & 0x03) == 0x00)
+	   {
+		state = pause;
+	   }
 
 	 case decrement:
-   	  if( (PINA & 0x03) == 0x03 ) // reset needs to go first bc 0x03 & 0x01 will still give 0x01
+   	  state = post_decrement;
+	   break;
+	
+	case post_decrement:
+	   if((PINA & 0x02) == 0x02)
            {
-             state = reset;
+                state = post_decrement;
            }
-           else if((PINA & 0x02) == 0x02)
+           else if((PINA & 0x03) == 0x03)
            {
-             state = decrement;
+                   state = reset;
            }
            else if((PINA & 0x01) == 0x01)
            {
-            state = increment;
+                state = reset;
+           }
+           else if((PINA & 0x03) == 0x00)
+           {
+                state = pause;
            }
 
-        else
-                   state = pause;
-
-
-	   break;
 
 	case reset:
-               if( (PINA & 0x03) == 0x03 ) // reset needs to go first bc 0x03 & 0x01 will still give 0x01
-           {
-             state = reset;
-           }
-           else if((PINA & 0x02) == 0x02)
-           {
-             state = decrement;
-           }
-           else if((PINA & 0x01) == 0x01)
-           {
-            state = increment;
-           }
-
-        else
-                   state = pause;
-
+	   if((PINA & 0x03) == 0x03)
+	   {
+		state = reset
+	   }
+	   else 
+		   state = pause;
+               
 	break;
 
 	 
@@ -111,11 +107,16 @@ void Tick(){
 	  case start:
 		  PORTC = 0x07;
 		  break;
+	case post_increment:
+		  break;
 	   case increment:
 		  if(PORTC < 0x09)
 		  {
 			PORTC =PORTC +1;
 		  }
+		  break;
+
+	case post_decrement:
 		  break;
 	   case decrement:
 		  if(PORTC > 0x00)
