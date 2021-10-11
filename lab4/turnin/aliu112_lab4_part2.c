@@ -46,13 +46,13 @@ void Tick(){
 	   break;
 
 	 case post_increment:
-	   if((PINA & 0x01) == 0x01)
+	   if((PINA & 0x03) == 0x03)
 	   {
-		state = post_increment;
+		state = reset;
 	   }
-	   else if((PINA & 0x03) == 0x03)
+	   else if((PINA & 0x01) == 0x01)
 	   {
-		   state = reset;
+		   state = post_increment;
 	   }
 	   else if((PINA & 0x03) == 0x00)
 	   {
@@ -65,13 +65,13 @@ void Tick(){
 	   break;
 	
 	case post_decrement:
-	   if((PINA & 0x02) == 0x02)
+	   if((PINA & 0x03) == 0x03)
            {
-                state = post_decrement;
+                state = reset;
            }
-           else if((PINA & 0x03) == 0x03)
+           else if((PINA & 0x02) == 0x02)
            {
-                   state = reset;
+                   state = post_decrement;
 	   }
            else if((PINA & 0x03) == 0x00)
            {

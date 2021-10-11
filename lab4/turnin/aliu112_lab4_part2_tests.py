@@ -13,22 +13,22 @@
 #   expected - The expected output (as a list of tuples) at the end of this test
 # An example set of tests is shown below. It is important to note that these tests are not "unit tests" in 
 # that they are not ran in isolation but in the order shown and the state of the device is not reset or 
-# altered in between executions (unless preconditions are used).
-tests = [ 
+# altered in between executions (unless preconditions are used)
+tests = [
     {'description': 'ADD 3 sub twice, reset, add 2',
-    'steps': [ {'inputs': [('PINA', 0x01)],'iterations':2, 'expected': [('PORTC',0x08)]}, # Set PIN to val then run one iteration
-        {'inputs': [('PINA', 0x01)], 'iterations':2, 'expected': [('PORTC',0x09)] }, # Set PIN to val then run 300 ms
-        {'inputs': [('PINA',0x01)], 'iterations': 2, 'expected': [('PORTC',0x09)]},
-        {'inputs': [('PINA',0x02)], 'iterations': 2,'expected': [('PORTC',0x08)]},
-        {'inputs': [('PINA',0x02)], 'iterations': 2,'expected': [('PORTC',0x07)]},
-        {'inputs': [('PINA',0x03)], 'iterations': 2,'expected': [('PORTC',0x00)]}, 
-        {'inputs': [('PINA',0x01)], 'iterations': 2,'expected': [('PORTC',0x01)]},
-        {'inputs': [('PINA',0x01)], 'iterations': 2},],
-    'expected': [('PORTC',0x02)],
+        'steps': [ {'inputs': [('PINA', 0x01)],'iterations':5, 'expected': [('PORTC',0x08)]}, # Set PIN to val then run one iteration
+        {'inputs': [('PINA', 0x01)], 'iterations':5, 'expected': [('PORTC',0x08)] }, # Set PIN to val then run 300 ms
+        {'inputs': [('PINA',0x01)], 'iterations': 5, 'expected': [('PORTC',0x08)]},
+        {'inputs': [('PINA',0x00)], 'iterations': 5,'expected': [('PORTC',0x08)]},
+        {'inputs': [('PINA',0x02)], 'iterations': 5,'expected': [('PORTC',0x07)]},
+        {'inputs': [('PINA',0x03)], 'iterations': 5,'expected': [('PORTC',0x00)]},
+        {'inputs': [('PINA',0x01)], 'iterations': 5,'expected': [('PORTC',0x01)]},
+        {'inputs': [('PINA',0x01)], 'iterations': 5},],
+    'expected': [('PORTC',0x01)],
     },
 
 
-    
+
     ]
 
 # Optionally you can add a set of "watch" variables these need to be global or static and may need
