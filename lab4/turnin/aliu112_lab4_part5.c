@@ -15,12 +15,11 @@
 
 
 enum States{start,beginning,match, match2, reset, unlock,lock} state;
+unsigned char arr[4] = {0x04,0x01,0x02,0x01};
+        unsigned char i =0;
+
 
 void Tick(){
-
-	unsigned char arr[4] = {0x04,0x01,0x02,0x01};
-	int i =0;
-
 	switch (state){
 	 case start:
 	   PORTB =0x00;
@@ -37,26 +36,25 @@ void Tick(){
 	   {
 		state = lock;
 	   } 
+	   else if(PINA == 0x00)
+	   {
+		state = beginning;
+	   }
 	   else 
-		   state= beginning;
+		   state= reset;
 	   break;
 	 
 	 case match:
-	   if((i == 3) && (PORTB == 0x01) )
-	   {
-		state = lock;
-	   }
-	   else if( (i== 3) && (PORTB == 0x00))
-	   {
-		state = unlock;
-	   }
-	   else if(PINA == arr[i] )
+	   PORTC=0x02;
+	   if(PINA == arr[i] )
 		{
 			state = match;
 		}
 	   else if (PINA == 0x00)
 		{
+			i = i+1;
 			state = match2;
+		
 		}	
 		else
 		{
@@ -66,18 +64,26 @@ void Tick(){
 	break;
 
 	 case match2:
-		i = i+1;
-		if(PINA == arr[i])
-		{
-			state = match;
+		PORTC = 0x03;
+		if((i == 3) && (PORTB == 0x01) )
+           {
+                state = lock;
+           }
+           else if((i== 3) && (PORTB == 0x00))
+           {
+                state = unlock;
+           }
+		else{
+			state = beginning;
 		}
-		else
-			state = reset;
+		
+		
 		break;
 
 	 
 	 case reset:
 	   i=0;
+	   state = beginning;
 	   break;
 
 	 case unlock:
