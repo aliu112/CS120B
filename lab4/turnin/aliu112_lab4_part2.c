@@ -14,7 +14,7 @@
  
 
 
-enum States{start,preincrement, increment,predecrement, decrement, pause, reset} state;
+enum States{start,post_increment, increment,post_decrement, decrement, pause, reset} state;
 
 void Tick(){
 	switch (state){
@@ -89,7 +89,7 @@ void Tick(){
 	case reset:
 	   if((PINA & 0x03) == 0x03)
 	   {
-		state = reset
+		state = reset;
 	   }
 	   else 
 		   state = pause;
