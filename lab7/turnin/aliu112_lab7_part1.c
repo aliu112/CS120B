@@ -1,10 +1,10 @@
 /*	Author: lab
  *  Partner(s) Name: none
  *	Lab Section: 23
- *	Assignment: Lab 6  Exercise 3
+ *	Assignment: Lab 7  Exercise 1
  *	Exercise Description: [optional - include for your own benefit]
  *
- * 	YOUTUBE LINK: https://youtu.be/k2Q4YORZEY0
+ * 	YOUTUBE LINK: https://youtu.be/n43P8LMB3XI
  *	I acknowledge all content contained herein, excluding template or example
  *	code, is my own original work.
  */
