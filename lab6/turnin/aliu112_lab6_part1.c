@@ -1,9 +1,10 @@
-/*	Author: lab
+/*	Author: Aaron Liu
  *  Partner(s) Name: none
  *	Lab Section:
- *	Assignment: Lab #  Exercise #
+ *	Assignment: Lab 6  Exercise 1
  *	Exercise Description: [optional - include for your own benefit]
  *
+ * 	YOUTUBE LINK: https://youtu.be/SX-PkRwjc2U
  *	I acknowledge all content contained herein, excluding template or example
  *	code, is my own original work.
  */
