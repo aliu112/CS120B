@@ -1,10 +1,10 @@
 /*	Author: Aaron Liu
  *  Partner(s) Name: none
  *	Lab Section: 
- *	Assignment: Lab 10  Exercise 3
+ *	Assignment: Lab 10  Exercise 4
  *	Exercise Description: [optional - include for your own benefit]
  *
- *	DEMO LINK: https://youtu.be/wnX4bK78kUo
+ *	DEMO LINK: https://youtu.be/vSVxDT24JMk
  *
  *	I acknowledge all content contained herein, excluding template or example
  *	code, is my own original work.
@@ -26,6 +26,8 @@ unsigned char input=0x00;
 unsigned long i=0x00;
 unsigned long j=0x00;
 unsigned char k=0x00;
+unsigned char m=0x00;
+unsigned char freq[] = {2,3,4,5,6,7,8,9};
 unsigned char speaker=0x00;
 unsigned char threeLEDs=0x00;
 unsigned char blinkingLED=0x00;
@@ -161,6 +163,97 @@ void ThreeLEDsSM(){
 
 }
 
+//enum states5{start5,wait,up,down,upR,downR}state5;
+enum states5{start5,wait,up,down,downR}state5;
+void Frequency()
+{
+	unsigned char input2= ~PINA & 0x07;
+	switch(state5)
+	{
+		case start5:
+			if(input2 == 0x01 || input2 == 0x05)
+                        {
+                                state5=up;
+                        }
+                        else if(input2==0x02 || input2 == 0x06)
+                        {
+                                state5 = down;
+                        }
+                        else
+                                state5=start5;
+                        break;
+		case wait:
+			if(input2 == 0x01 || input2 == 0x05)
+			{
+				state5=up;
+			}
+			else if(input2==0x02 || input2 == 0x06)
+			{
+				state5 = down;
+			}
+			else 
+				state5=wait;
+			break;
+		case up:
+			state5= downR;
+			break;
+		case down:
+			state5=downR;
+			break;
+	/*
+		case upR:
+			if(input2 == 0x01 || input2==0x05)
+			{
+				state=upR;
+			}
+			else if(input2 ==0x04 ||input2 == 0x00)
+			{
+				state=wait;
+			}
+			break;
+	*/
+		case downR:
+			if(input2 ==0x02 || input2==0x06 || input2 ==0x01 || input2 == 0x05)
+			{
+				state5=downR;
+			}
+			else if(input2 == 0x04 || input2==0x00)
+			{
+				state5 = wait;
+			}		
+			break;
+		default:
+			break;
+	}
+	switch(state5)
+	{
+		case start5:
+			m=0;
+			break;
+		case wait:
+			break;
+		case up:
+			if(m<7)
+			{
+				m++;
+			}
+			break;
+		case down:
+			if(m>0)
+			{
+				m--;
+			}
+			break;
+	//	case upR:
+	//		break;
+		case downR:
+			break;
+		default:
+			break;
+
+	}
+}
+
 void SPEAKER(){
 	input = ~PINA & 0x04;
 	switch(state4)
@@ -170,6 +263,8 @@ void SPEAKER(){
 			{
 				state4 = on;
 			}
+			else 
+				state = off;
 			break;
 		case on:
 			if(input ==0x00)
@@ -193,11 +288,11 @@ void SPEAKER(){
 			speaker=0x00;
 			break;
 		case on:
-			if(k<=2)
+			if(k<= freq[m])
 			{
 				speaker=0x10;
 			}
-			else if(k<=4)
+			else if(k<=freq[m]*2)
 			{
 				speaker =0x00;
 			}
@@ -247,6 +342,7 @@ int main(void) {
     while (1) {
 	BlinkLEDSM();
 	ThreeLEDsSM();
+	Frequency();
 	SPEAKER();
 	CombineLEDsSM();
 	while(!TimerFlag);
