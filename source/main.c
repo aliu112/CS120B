@@ -1,8 +1,18 @@
-/*	Author: lab
+/*	Author: Aaron Liu
  *  Partner(s) Name: none
  *	Lab Section:
  *	Assignment: Lab #  Exercise #
  *	Exercise Description: [optional - include for your own benefit]
+ *
+ *	So far I have implemented one falling object using the matrix as shown in the demo. 
+ *	I have set it up in a task scheduler.
+ *	TODO: Implement joystick to control player to catch objects
+ *	TODO: USE LCD to show score and eeprom
+ *	TODO: Randomize where the object will drop
+ *
+ *	Demo Link: https://youtu.be/OdueJuj2b9o
+ *
+ *
  *
  *	I acknowledge all content contained herein, excluding template or example
  *	code, is my own original work.
