@@ -1,10 +1,14 @@
 /*	Author: Aaron Liu
  *  Partner(s) Name: none
  *	Lab Section:
- *	Assignment: Lab #  Exercise #
+ *	Assignment: Project
  *	Exercise Description: [optional - include for your own benefit]
  *
- *	Demo Link
+ *	Demo Link 1: https://youtu.be/IVxwJLJ8h1E
+ *	Demo Link 2: https://youtu.be/BBfMSuzbskg 
+ *	Demo Link 3: 
+ *
+ *  	TODO: implement LCD screen to display
  *
  *	I acknowledge all content contained herein, excluding template or example
  *	code, is my own original work.
@@ -43,7 +47,9 @@ void transmit_data(unsigned char data) {
 unsigned long counter=0x00;
 unsigned char row = 0x01;
 unsigned char temp1,temp2=0x00;
-enum states{d1,d2,d3,d4,d5}state;
+unsigned char flag =0x00;
+unsigned char score = 0x00;
+enum states{beginning,d1,d2,d3,d4,d5}state;
 enum states2{c1,c2,c3,c4,c5}state2;
 enum states3{start}state3;
 
@@ -102,24 +108,45 @@ int tick2(){
 	switch(state2)
 	{
 		case c1:
+			
 			temp1 = 0xFE;
+			if(flag==0x01)
+			{
+				score++;
+			}
 			//transmit_data(0x01);
 			break;
 		case c2:
 			temp1 = 0xFD;
+			if(flag ==0x02)
+			{
+				score++;
+			}
 			//transmit_data(0x01);
 			break;
 		case c3:
 			temp1 = 0xFB;
+			if(flag==0x03)
+			{
+				score++;
+			}
 			//transmit_data(0x01);
 			break;
 		case c4:
-
+			
 			temp1 = 0xF7;
+			if(flag==0x04)
+			{
+				score++;
+			}
 			//transmit_data(0x01);
 			break;
 		case c5:
 			temp1 = 0xEF;
+			if(flag==0x05)
+			{
+				score++;
+			}
 			//transmit_data(0x01);
 			break;
 		default:
@@ -129,40 +156,85 @@ int tick2(){
 }
 
 int tick(){
+	srand(rand());
+	int x = rand() % 5;
 	switch(state)
 	{
+		case beginning:
+			if(x == 0)
+                                {
+                                        state= d1;
+                                }
+                                else if(x==1)
+                                {
+                                        state = d2;
+                                }
+                                else if(x==2)
+                                {
+                                        state=d3;
+                                }
+                                else if(x==3)
+                                {
+                                        state=d4;
+                                }
+                                else if(x==4)
+                                {
+                                        state =d5;
+                                }
+			break;
 		case d1:
-			if(counter > 75)
+			if(counter > 24)
                         {
+				flag=0;
                                 row =0x00;
                                 counter=0;
-                                state = d2;
+                                if(x == 0)
+                                {       
+                                        state= d1;
+                                }
+                                else if(x==1)
+                                {
+                                        state = d2;
+                                }
+                                else if(x==2)
+                                {
+                                        state=d3;
+                                }
+                                else if(x==3)
+                                {
+                                        state=d4;
+                                }
+                                else if(x==4)
+                                {
+                                        state =d5;
+                                }
                         }
-                        else if(counter >70)
+                        else if(counter >21)
                         {
+				flag=0x01;
                                 row = 0x80;
                         }
-                        else if(counter >60)
+                        else if(counter >18)
                         {
                                 row = 0x40;
                         }
-                         else if(counter >50)
+                         else if(counter >15)
                         {
                                 row = 0x20;
                         }
-                         else if(counter >40)
+                         else if(counter >12)
                         {
                                 row = 0x10;
                         }
-                         else if(counter >30)
+                         else if(counter >9)
                         {
                                 row = 0x08;
                         }
-                         else if(counter >20)
+                         else if(counter >6)
                         {
                                 row = 0x04;
                         }
-                         else if(counter >10)
+                         else if(counter >3)
                         {
                                 row = 0x02;
                         }
@@ -172,37 +244,58 @@ int tick(){
                         }
 			break;
 		case d2:
-			if(counter > 75)
+			if(counter > 24)
                         {
+				flag=0;
                                 row =0x00;
                                 counter=0;
-                                state = d3;
+                                if(x == 0)
+                                {       
+                                        state= d1;
+                                }
+                                else if(x==1)
+                                {
+                                        state = d2;
+                                }
+                                else if(x==2)
+                                {
+                                        state=d3;
+                                }
+                                else if(x==3)
+                                {
+                                        state=d4;
+                                }
+                                else if(x==4)
+                                {
+                                        state =d5;
+                                }
                         }
-                        else if(counter >70)
+                        else if(counter >21)
                         {
+				flag=0x02;
                                 row = 0x80;
                         }
-                        else if(counter >60)
+                        else if(counter >18)
                         {
                                 row = 0x40;
                         }
-                         else if(counter >50)
+                         else if(counter >15)
                         {
                                 row = 0x20;
                         }
-                         else if(counter >40)
+                         else if(counter >12)
                         {
                                 row = 0x10;
                         }
-                         else if(counter >30)
+                         else if(counter >9)
                         {
                                 row = 0x08;
                         }
-                         else if(counter >20)
+                         else if(counter >6)
                         {
                                 row = 0x04;
                         }
-                         else if(counter >10)
+                         else if(counter >3)
                         {
                                 row = 0x02;
                         }
@@ -212,37 +305,58 @@ int tick(){
                         }
 			break;
 		case d3:
-			if(counter > 75)
+			if(counter > 24)
                         {
+				flag=0;
                                 row =0x00;
                                 counter=0;
-                                state = d4;
+                                if(x == 0)
+                                {       
+                                        state= d1;
+                                }
+                                else if(x==1)
+                                {
+                                        state = d2;
+                                }
+                                else if(x==2)
+                                {
+                                        state=d3;
+                                }
+                                else if(x==3)
+                                {
+                                        state=d4;
+                                }
+                                else if(x==4)
+                                {
+                                        state =d5;
+                                }
                         }
-                        else if(counter >70)
+                        else if(counter >21)
                         {
+				flag=0x03;
                                 row = 0x80;
                         }
-                        else if(counter >60)
+                        else if(counter >18)
                         {
                                 row = 0x40;
                         }
-                         else if(counter >50)
+                         else if(counter >15)
                         {
                                 row = 0x20;
                         }
-                         else if(counter >40)
+                         else if(counter >12)
                         {
                                 row = 0x10;
                         }
-                         else if(counter >30)
+                         else if(counter >9)
                         {
                                 row = 0x08;
                         }
-                         else if(counter >20)
+                         else if(counter >6)
                         {
                                 row = 0x04;
                         }
-                         else if(counter >10)
+                         else if(counter >3)
                         {
                                 row = 0x02;
                         }
@@ -252,38 +366,60 @@ int tick(){
                         }
 			break;
 		case d4:
-			if(counter > 75)
+			if(counter > 24)
                         {
+				flag =0;
                                 row =0x00;
 				counter=0;
-                                state = d5;
+
+                                if(x == 0)
+				{
+					state= d1;
+				}
+				else if(x==1)
+				{
+					state = d2;
+				}
+				else if(x==2)
+				{
+					state=d3;
+				}
+				else if(x==3)
+				{
+					state=d4;
+				}
+				else if(x==4)
+				{
+					state =d5;
+				}
                         }
-                        else if(counter >70)
+                        else if(counter >21)
                         {
+				flag =0x04;
                                 row = 0x80;
  			}
-                        else if(counter >60)
+                        else if(counter >18)
                         {
                                 row = 0x40;
                         }
-                         else if(counter >50)
+                         else if(counter >15)
                         {
                                 row = 0x20;
                         }
-                         else if(counter >40)
+                         else if(counter >12)
                         {
                                 row = 0x10;
                         }
-                         else if(counter >30)
+                         else if(counter >9)
                         {
                                 row = 0x08;
                         }
                         
-		       	else if(counter >20)
+		       	else if(counter >6)
 			{
 		       		row = 0x04;
                         }
-                         else if(counter >10)
+                         else if(counter >3)
                         {
                                 row = 0x02;
                         }
@@ -294,37 +430,58 @@ int tick(){
 
 			break;
 		case d5:
-			if(counter > 75)
+			if(counter > 24)
                         {
+				flag=0;
                                 row =0x00;
                                 counter=0;
-                                state = d1;
+                                if(x == 0)
+                                {       
+                                        state= d1;
+                                }
+                                else if(x==1)
+                                {
+                                        state = d2;
+                                }
+                                else if(x==2)
+                                {
+                                        state=d3;
+                                }
+                                else if(x==3)
+                                {
+                                        state=d4;
+                                }
+                                else if(x==4)
+                                {
+                                        state =d5;
+                                }
                         }
-                        else if(counter >70)
+                        else if(counter >21)
                         {
+				flag=0x05;
                                 row = 0x80;
                         }
-                        else if(counter >60)
+                        else if(counter >18)
                         {
                                 row = 0x40;
                         }
-                         else if(counter >50)
+                         else if(counter >15)
                         {
                                 row = 0x20;
                         }
-                         else if(counter >40)
+                         else if(counter >12)
                         {
                                 row = 0x10;
                         }
-                         else if(counter >30)
+                         else if(counter >9)
                         {
                                 row = 0x08;
                         }
-                         else if(counter >20)
+                         else if(counter >6)
                         {
                                 row = 0x04;
                         }
-                         else if(counter >10)
+                         else if(counter >3)
                         {
                                 row = 0x02;
                         }
@@ -338,34 +495,41 @@ int tick(){
 	}
 	switch(state)
 	{
+		case beginning:
+			x=rand()%5;
  		case d1:
 			temp2 = 0xFE;
                        // PORTD = 0xFE;
 		//	transmit_data(row);
+			x=rand()%5;
 			++counter;
                         break;
                 case d2:
 			temp2 = 0xFD;
                   //     PORTD = 0xFD;
 		//	transmit_data(row);
+			x= rand()%5;
 			++counter;
                         break;
                 case d3:
                         temp2	= 0xFB;
 		//	PORTD = 0xFB;
 		//	transmit_data(row);
+			x= rand()%5;
 			++counter;
                         break;
                 case d4:
                         temp2 = 0xF7;
 		//	PORTD = 0xF7;
 		//	transmit_data(row);
+			x=rand()%5;
 			++counter;
                         break;
                 case d5:
                         temp2 = 0xEF;
 		//	PORTD = 0xEF;
 		//	transmit_data(row);
+			x=rand()%5;
 			++counter;
                         break;
                 default:
@@ -383,14 +547,15 @@ int tick3()
         }
         switch(state3){
                 case start:
-                      PORTD = temp1;
-                      transmit_data(0x80);
-                      _delay_ms(10);
-                      PORTD=0x00;
-                      transmit_data(0x00);
-                       _delay_ms(10);
-                        PORTD = temp2;
-                       transmit_data(row);
+                      PORTD = temp2;
+                      transmit_data(row);
+                      _delay_ms(175);
+                     // PORTD=0x00;
+                    // transmit_data(0x00);
+                      // _delay_ms(200);
+                        PORTD = temp1;
+                       transmit_data(0x80);
+		       _delay_ms(175);
                 //      _delay_ms(10);
               
 
@@ -422,7 +587,7 @@ int main(void) {
 	task1.TickFct = &tick;
 
 	task2.state = 0;
-	task2.period =100;
+	task2.period =300;
 	task2.elapsedTime = task2.period;
 	task2.TickFct = &tick2;
 
@@ -447,8 +612,7 @@ int main(void) {
             }
             tasks[i]->elapsedTime +=100;
         }
-        while (!TimerFlag)
-            ;
+        while (!TimerFlag);
         TimerFlag = 0;
 
     }
