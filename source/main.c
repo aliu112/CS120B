@@ -6,9 +6,8 @@
  *
  *	Demo Link 1: https://youtu.be/IVxwJLJ8h1E
  *	Demo Link 2: https://youtu.be/BBfMSuzbskg 
- *	Demo Link 3: 
+ *	Demo Link 3: https://youtu.be/vgtTz9e9GU0
  *
- *  	TODO: implement LCD screen to display
  *
  *	I acknowledge all content contained herein, excluding template or example
  *	code, is my own original work.
@@ -566,6 +565,7 @@ int tick(){
 			score =0;
 			score2=0;
 			x=rand()%5;
+			break;
  		case d1:
 			temp2 = 0xFE;
                        // PORTD = 0xFE;
@@ -645,7 +645,7 @@ int tick4(){
 	}
 	switch(state4){
 		case showScore:
-			if(timer <25)
+			if(timer <15)
 			{
 				if(score2 < 10)
 				{
@@ -654,7 +654,7 @@ int tick4(){
 					LCD_Cursor(2);
 					LCD_WriteData(47);
 					LCD_Cursor(3);
-					LCD_WriteData(2+'0');
+					LCD_WriteData(1+'0');
 					LCD_Cursor(4);
 					LCD_WriteData(5+'0');
 				}
@@ -667,7 +667,7 @@ int tick4(){
 					LCD_Cursor(3);
                                         LCD_WriteData(47);
                                         LCD_Cursor(4);
-                                        LCD_WriteData(2+'0');
+                                        LCD_WriteData(1+'0');
                                         LCD_Cursor(5);
                                         LCD_WriteData(5+'0');
 
@@ -681,20 +681,20 @@ int tick4(){
                        			LCD_Cursor(3);
                                         LCD_WriteData(47);
                                         LCD_Cursor(4);
-                                        LCD_WriteData(2+'0');
+                                        LCD_WriteData(1+'0');
                                         LCD_Cursor(5);
                                         LCD_WriteData(5+'0');
 				}
 			}
-			if(timer >=25)
+			if(timer >=15)
 			{
-				if(score2 >22 )
+				if(score2 >11 )
 				{
 					LCD_DisplayString(1,"Winner!");
 				}
-				else if(score2 <= 22)
+				else if(score2 <= 12)
 				{
-					LCD_DisplayString(1,"Loser");
+					LCD_DisplayString(1,"Nice Try!");
 				}
 			}
 
