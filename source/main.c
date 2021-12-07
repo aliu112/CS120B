@@ -16,6 +16,7 @@
 #include <avr/io.h>
 #ifdef _SIMULATE_
 #include <util/delay.h>
+#include <io.h>
 #include "scheduler.h"
 #include "timer.h"
 #include "simAVRHeader.h"
@@ -46,12 +47,15 @@ void transmit_data(unsigned char data) {
 
 unsigned long counter=0x00;
 unsigned char row = 0x01;
+unsigned char timer=0x00;
 unsigned char temp1,temp2=0x00;
 unsigned char flag =0x00;
 unsigned char score = 0x00;
+unsigned char score2 = 0x00;
 enum states{beginning,d1,d2,d3,d4,d5}state;
 enum states2{c1,c2,c3,c4,c5}state2;
 enum states3{start}state3;
+enum states4{showScore}state4;
 
 
 int tick2(){
@@ -111,8 +115,13 @@ int tick2(){
 			
 			temp1 = 0xFE;
 			if(flag==0x01)
-			{
+			{	
+				score2++;
 				score++;
+				if(score >9)
+				{
+					score=0;
+				}
 			}
 			//transmit_data(0x01);
 			break;
@@ -120,7 +129,13 @@ int tick2(){
 			temp1 = 0xFD;
 			if(flag ==0x02)
 			{
+				score2++;
 				score++;
+				if(score >9)
+                                {
+                                        score=0;
+                                }
+
 			}
 			//transmit_data(0x01);
 			break;
@@ -128,7 +143,13 @@ int tick2(){
 			temp1 = 0xFB;
 			if(flag==0x03)
 			{
+				score2++;
 				score++;
+				if(score >9)
+                                {
+                                        score=0;
+                                }
+
 			}
 			//transmit_data(0x01);
 			break;
@@ -137,7 +158,13 @@ int tick2(){
 			temp1 = 0xF7;
 			if(flag==0x04)
 			{
+				score2++;
 				score++;
+				if(score >9)
+                                {
+                                        score=0;
+                                }
+
 			}
 			//transmit_data(0x01);
 			break;
@@ -145,7 +172,13 @@ int tick2(){
 			temp1 = 0xEF;
 			if(flag==0x05)
 			{
+				score2++;
 				score++;
+				if(score >9)
+                                {
+                                        score=0;
+                                }
+
 			}
 			//transmit_data(0x01);
 			break;
@@ -158,10 +191,11 @@ int tick2(){
 int tick(){
 	srand(rand());
 	int x = rand() % 5;
+	unsigned char input2 = ~PINA & 0x02;
 	switch(state)
 	{
-		case beginning:
-			if(x == 0)
+		case beginning:	
+				if(x == 0)
                                 {
                                         state= d1;
                                 }
@@ -181,10 +215,17 @@ int tick(){
                                 {
                                         state =d5;
                                 }
+			
 			break;
 		case d1:
+			if(input2 == 0x02)
+                        {
+                                state=beginning;
+                        }
+
 			if(counter > 24)
                         {
+				++timer;
 				flag=0;
                                 row =0x00;
                                 counter=0;
@@ -244,8 +285,13 @@ int tick(){
                         }
 			break;
 		case d2:
+			if(input2 == 0x02)
+			{
+				state=beginning;
+			}
 			if(counter > 24)
                         {
+				++timer;
 				flag=0;
                                 row =0x00;
                                 counter=0;
@@ -305,8 +351,14 @@ int tick(){
                         }
 			break;
 		case d3:
+			if(input2 == 0x02)
+                        {
+                                state=beginning;
+                        }
+
 			if(counter > 24)
                         {
+				++timer;
 				flag=0;
                                 row =0x00;
                                 counter=0;
@@ -366,8 +418,14 @@ int tick(){
                         }
 			break;
 		case d4:
+			if(input2 == 0x02)
+                        {
+                                state=beginning;
+                        }
+
 			if(counter > 24)
                         {
+				++timer;
 				flag =0;
                                 row =0x00;
 				counter=0;
@@ -430,11 +488,17 @@ int tick(){
 
 			break;
 		case d5:
+			if(input2 == 0x02)
+                        {
+                                state=beginning;
+                        }
+
 			if(counter > 24)
                         {
 				flag=0;
                                 row =0x00;
                                 counter=0;
+				++timer;
                                 if(x == 0)
                                 {       
                                         state= d1;
@@ -496,6 +560,11 @@ int tick(){
 	switch(state)
 	{
 		case beginning:
+			LCD_ClearScreen();
+			counter=0;
+			timer=0;
+			score =0;
+			score2=0;
 			x=rand()%5;
  		case d1:
 			temp2 = 0xFE;
@@ -566,6 +635,76 @@ int tick3()
 
 }
 
+int tick4(){
+	switch(state4){
+		case showScore:
+			state4 = showScore;
+			break;
+		default:
+			break;
+	}
+	switch(state4){
+		case showScore:
+			if(timer <25)
+			{
+				if(score2 < 10)
+				{
+					LCD_Cursor(1);
+					LCD_WriteData(score + '0');
+					LCD_Cursor(2);
+					LCD_WriteData(47);
+					LCD_Cursor(3);
+					LCD_WriteData(2+'0');
+					LCD_Cursor(4);
+					LCD_WriteData(5+'0');
+				}
+				else if(score2 >=10 && score2 <20)
+				{
+					LCD_Cursor(1);
+					LCD_WriteData(1 + '0');
+					LCD_Cursor(2);
+					LCD_WriteData(score+'0');
+					LCD_Cursor(3);
+                                        LCD_WriteData(47);
+                                        LCD_Cursor(4);
+                                        LCD_WriteData(2+'0');
+                                        LCD_Cursor(5);
+                                        LCD_WriteData(5+'0');
+
+				}
+				else if(score2 >=20 && score2 <25)
+                      	 	{
+                       		        LCD_Cursor(1);
+                        	        LCD_WriteData(2 + '0');
+                        	        LCD_Cursor(2);
+                             		LCD_WriteData(score+'0');
+                       			LCD_Cursor(3);
+                                        LCD_WriteData(47);
+                                        LCD_Cursor(4);
+                                        LCD_WriteData(2+'0');
+                                        LCD_Cursor(5);
+                                        LCD_WriteData(5+'0');
+				}
+			}
+			if(timer >=25)
+			{
+				if(score2 >22 )
+				{
+					LCD_DisplayString(1,"Winner!");
+				}
+				else if(score2 <= 22)
+				{
+					LCD_DisplayString(1,"Loser");
+				}
+			}
+
+			break;
+		default:
+			break;
+	}
+	return state4;
+}
+
 
 int main(void) {
     /* Insert DDR and PORT initializations */
@@ -575,10 +714,12 @@ int main(void) {
 	DDRD = 0xFF; PORTD = 0x00;
     /* Insert your solution below */
 	A2D_init();
+	LCD_init();
 	static task task1;
 	static task task2;
 	static task task3;
-	task *tasks[] = {&task1,&task2,&task3};
+	static task task4;
+	task *tasks[] = {&task1,&task2,&task3,&task4};
 	const unsigned short numTasks = sizeof(tasks) / sizeof(task*);
 
 	task1.state=0;
@@ -595,6 +736,11 @@ int main(void) {
 	task3.period=100;
 	task3.elapsedTime = task3.period;
 	task3.TickFct = &tick3;
+
+	task4.state=0;
+	task4.period=100;
+	task4.elapsedTime = task4.period;
+	task4.TickFct = &tick4;
 
 	TimerSet(100);
 	TimerOn();
